@@ -5,6 +5,7 @@
   --secondary-color: #5b7f31;
   --secondary-color-dark: #3f5922;
   --tertiary-color: #6641a5;
+  --tertiary-color-light: #c7bade;
 }
 
 * {
@@ -53,6 +54,7 @@ h1 button {
 .btn-ghost {
   border: 0;
   background-color: transparent;
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.7);
 }
 
 .clear {
@@ -151,4 +153,60 @@ h1 button {
   font-weight: bold;
   font-size: 16px;
   color: var(--secondary-color-dark);
+}
+
+.navigation {
+  display: flex;
+  margin: 20px 0;
+}
+
+.navigation .nav-button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.navigation p {
+  margin: 0 25px;
+}
+
+.add-container {
+  opacity: 0;
+  z-index: -1;
+  background-color: var(--tertiary-color-light);
+  border-top: 2px solid rgba(102, 65, 165, 0.7);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 0;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  transition: 0.3s ease;
+}
+
+.add-container.show {
+  opacity: 1;
+  z-index: 2;
+}
+
+.add-container h3 {
+  margin: 10px 0;
+}
+
+.add-container label {
+  display: block;
+  margin: 20px 0 10px;
+}
+
+.form-group textarea {
+  border: 1px solid #aaa;
+  border-radius: 3px;
+  font-size: 16px;
+  padding: 12px;
+  min-width: 550px;
+  max-width: 100%;
 }
