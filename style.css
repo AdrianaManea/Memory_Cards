@@ -1,8 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 
 :root {
   --primary-color: #a9ea5c;
   --secondary-color: #5b7f31;
+  --secondary-color-dark: #3f5922;
   --tertiary-color: #6641a5;
 }
 
@@ -19,7 +20,7 @@ body {
   height: 100vh;
   margin: 0;
   overflow: hidden;
-  font-family: 'Poppins', sans-serifs;
+  font-family: 'Poppins', sans-serif;
 }
 
 h1 {
@@ -36,12 +37,12 @@ h1 button {
 .btn {
   cursor: pointer;
   background-color: var(--primary-color);
-  border: 2px solid #aaa;
+  border: 1px solid #aaa;
   border-radius: 3px;
   font-size: 14px;
   margin-top: 20px;
   padding: 10px 15px;
-  box-shadow: 0 5px 10px rgba(102, 65, 165, 0.7);
+  box-shadow: 0 1px 10px rgba(102, 65, 165, 0.7);
 }
 
 .btn-small {
@@ -61,10 +62,11 @@ h1 button {
 }
 
 .cards {
+  /* Enables a 3d-space for children elements */
   perspective: 1000px;
   position: relative;
-  height: 300px;
-  width: 500px;
+  height: 350px;
+  width: 560px;
   /* set max-width to make sure it doesn't go outside of it's container */
   max-width: 100%;
 }
@@ -78,24 +80,42 @@ h1 button {
   left: 0;
   height: 100%;
   width: 100%;
+  transform: translateX(50%) rotateY(-10deg);
+  transition: transform 5s ease, opacity 5s ease;
 }
 
 .card.active {
   cursor: pointer;
   opacity: 1;
-  z-index: 10;
+  z-index: 1;
+  transform: translateX(0) rotateY(0deg);
+}
+
+/* . left - dynamically added JS  */
+.card.left {
+  transform: translateX(-50%) rotateY(10deg);
 }
 
 .inner-card {
-  box-shadow: 10px 10px 20px rgba(102, 65, 165, 0.9);
+  box-shadow: 0 3px 30px rgba(102, 65, 165, 0.9);
   border-radius: 4px;
   height: 100%;
   width: 100%;
   position: relative;
+  /* transform-style: preserve-3d; CSS property sets whether children of an element are positioned in the 3D space or are flatenned in the plane of the element */
+  transform-style: preserve-3d;
+  transition: transform 5s ease;
+}
+
+/* .show-answer - dynamically added JS */
+.card.show-answer .inner-card {
+  transform: rotateX(180deg);
 }
 
 .inner-card-front,
 .inner-card-back {
+  /* backface-visibility: hidden; - It set's whether the backface of the element is visible when it's turned towards us */
+  backface-visibility: hidden;
   position: absolute;
   top: 0;
   left: 0;
@@ -104,10 +124,31 @@ h1 button {
   justify-content: center;
   height: 100%;
   width: 100%;
-  /* 
-  Both .inner-card-front and .inner-card.back have the background: var(--secondary-color);
-  We only see .inner-card back because it's the second one
-  So the .inner-card-back (the answer) is covering the .inner-card-front (the question)
-  */
+
   background: var(--secondary-color);
+}
+
+/* Set default rotate position */
+.inner-card-front {
+  transform: rotateX(0deg);
+  z-index: 2;
+}
+
+/* Set default rotate position */
+.inner-card-back {
+  transform: rotateX(180deg);
+}
+
+.inner-card-front::after,
+.inner-card-back::after {
+  /*  Font Awesome unicode '\f021' */
+  content: '\f021  Flip';
+  font-family: 'Font Awesome 5 Free', 'Poppins', sans-serif;
+
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-weight: bold;
+  font-size: 16px;
+  color: var(--secondary-color-dark);
 }
