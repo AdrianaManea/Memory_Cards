@@ -1,5 +1,5 @@
 const cardsContainer = document.getElementById('cards-container'),
-  prevBtn = document.getElementById('cards-prev'),
+  prevBtn = document.getElementById('prev'),
   nextBtn = document.getElementById('next'),
   currentEl = document.getElementById('current'),
   showBtn = document.getElementById('show'),
@@ -31,10 +31,10 @@ const cardsData = [{
   },
   {
     question: "What is a variable?",
-    answer: "Container for a piece of data"
+    answer: "A container for a piece of data."
   },
   {
-    question: "Example of Case Sensitive Variable",
+    question: "Give example of Case Sensitive Variable.",
     answer: "thisIsAVariable"
   }
 ];
@@ -86,3 +86,43 @@ function updateCurrentText() {
 }
 
 createCards();
+
+
+
+// Event Listeners
+
+// Move forward
+nextBtn.addEventListener('click', () => {
+  // Hide the card to the left
+  // .className overrides what is already there so add all classes
+  cardsEl[currentActiveCard].className = "card left";
+
+  currentActiveCard = currentActiveCard + 1;
+
+  // Keep it within the range
+  if (currentActiveCard > cardsEl.length - 1) {
+    currentActiveCard = cardsEl.length - 1;
+  }
+
+  cardsEl[currentActiveCard].className = "card active";
+
+  updateCurrentText();
+});
+
+// Move backward
+prevBtn.addEventListener('click', () => {
+  // Hide the card to the right
+  // .className overrides what is already there so add all classes
+  cardsEl[currentActiveCard].className = "card right";
+
+  currentActiveCard = currentActiveCard - 1;
+
+  // Keep it within the range
+  if (currentActiveCard < 0) {
+    currentActiveCard = 0;
+  }
+
+  cardsEl[currentActiveCard].className = "card active";
+
+  updateCurrentText();
+});
