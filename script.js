@@ -25,19 +25,22 @@ let currentActiveCard = 0;
 const cardsEl = [];
 
 // Store card data
-const cardsData = [{
-    question: "What must a variable begin with?",
-    answer: "A letter, $ or _"
-  },
-  {
-    question: "What is a variable?",
-    answer: "A container for a piece of data."
-  },
-  {
-    question: "Give example of Case Sensitive Variable.",
-    answer: "thisIsAVariable"
-  }
-];
+const cardsData = getCardsData();
+
+// const cardsData = [{
+//     question: "What must a variable begin with?",
+//     answer: "A letter, $ or _"
+//   },
+//   {
+//     question: "What is a variable?",
+//     answer: "A container for a piece of data."
+//   },
+//   {
+//     question: "Give example of Case Sensitive Variable.",
+//     answer: "thisIsAVariable"
+//   }
+// ];
+
 
 // Loop through the data and create a DOM card for each one
 // Create all cards
@@ -85,13 +88,26 @@ function updateCurrentText() {
   currentEl.innerText = `${currentActiveCard + 1 }/${cardsEl.length}`;
 }
 
+// Get cards from Local Storage
+function getCardsData() {
+  const cards = JSON.parse(localStorage.getItem('cards'));
+  return cards === null ? [] : cards;
+}
+
+// Add cards to Local Storage
+function setCardsData(cards) {
+  localStorage.setItem('cards', JSON.stringify(cards));
+  window.location.reload();
+}
+
+
 createCards();
 
 
 
-// Event Listeners
+// EVENT LISTENERS
 
-// Move forward
+// Move forward button
 nextBtn.addEventListener('click', () => {
   // Hide the card to the left
   // .className overrides what is already there so add all classes
@@ -109,7 +125,7 @@ nextBtn.addEventListener('click', () => {
   updateCurrentText();
 });
 
-// Move backward
+// Move backward button
 prevBtn.addEventListener('click', () => {
   // Hide the card to the right
   // .className overrides what is already there so add all classes
@@ -125,4 +141,47 @@ prevBtn.addEventListener('click', () => {
   cardsEl[currentActiveCard].className = "card active";
 
   updateCurrentText();
+});
+
+// Show add container
+showBtn.addEventListener('click', () => addContainer.classList.add('show'));
+
+// Hide add container
+hideBtn.addEventListener('click', () => addContainer.classList.remove('show'));
+
+// Add new card button
+addCardBtn.addEventListener('click', () => {
+  const question = questionEl.value;
+  const answer = answerEl.value;
+  // console.log(question, answer);
+
+  if (question.trim() && answer.trim()) {
+    const newCard = {
+      question,
+      answer
+    };
+
+    createCard(newCard);
+
+    // Clear inputs
+    questionEl.value = '';
+    answerEl.value = '';
+
+    // Hide add container
+    addContainer.classList.remove('show');
+
+    // Push newCard to the entire array
+    cardsData.push(newCard);
+
+    // Passing the entire array to Local Storage through setCardsData()
+    setCardsData(cardsData);
+  }
+});
+
+// Clear cards button
+clearBtn.addEventListener('click', () => {
+  // Clear Local Storage
+  localStorage.clear();
+  cardsContainer.innerHTML = '';
+  window.location.reload();
 });

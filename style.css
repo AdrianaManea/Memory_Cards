@@ -130,6 +130,11 @@ h1 button {
   background: var(--secondary-color);
 }
 
+.inner-card-front p,
+.inner-card-back p {
+  padding-left: 15px;
+}
+
 /* Set default rotate position */
 .inner-card-front {
   transform: rotateX(0deg);
@@ -185,7 +190,7 @@ h1 button {
   top: 0;
   bottom: 0;
   width: 100%;
-  transition: 5s ease;
+  transition: 1s ease;
 }
 
 .add-container.show {
