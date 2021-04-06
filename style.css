@@ -83,7 +83,7 @@ h1 button {
   height: 100%;
   width: 100%;
   transform: translateX(50%) rotateY(-10deg);
-  transition: transform 5s ease, opacity 5s ease;
+  transition: transform 1s ease, opacity 1s ease;
 }
 
 .card.active {
@@ -106,7 +106,7 @@ h1 button {
   position: relative;
   /* transform-style: preserve-3d; CSS property sets whether children of an element are positioned in the 3D space or are flatenned in the plane of the element */
   transform-style: preserve-3d;
-  transition: transform 5s ease;
+  transition: transform 1s ease;
 }
 
 /* .show-answer - dynamically added JS */
@@ -185,7 +185,7 @@ h1 button {
   top: 0;
   bottom: 0;
   width: 100%;
-  transition: 0.3s ease;
+  transition: 5s ease;
 }
 
 .add-container.show {
