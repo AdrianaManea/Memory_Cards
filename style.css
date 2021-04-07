@@ -46,6 +46,11 @@ h1 button {
   box-shadow: 0 1px 10px rgba(102, 65, 165, 0.7);
 }
 
+/* textarea:focus,
+button:focus {
+  outline: none;
+} */
+
 .btn-small {
   font-size: 12px;
   padding: 5px 10px;
